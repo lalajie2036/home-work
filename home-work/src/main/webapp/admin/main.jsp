@@ -1,4 +1,5 @@
-<%@ page import="cn.edu.niit.javabean.User" %><%--
+<%@ page import="cn.edu.niit.javabean.User" %>
+<%@ page import="cn.edu.niit.javabean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: DaHa
   Date: 2021/3/15
@@ -12,10 +13,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport"
 		  content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>图书馆</title>
+	<title>图书馆管理端</title>
 	<link rel="stylesheet" href="/layui/css/layui.css"/>
 	<style>
-		.layui-show{
+		.layui-show {
 			width: 100%;
 			height: 100%;
 		}
@@ -24,18 +25,18 @@
 <body class="layui-layout-body">
 
 <%
-	User user = (User) request.getSession().getAttribute("user");
+	Admin user = (Admin) request.getSession().getAttribute("admin");
 %>
 
 <div class="layui-layout layui-layout-admin">
 	<div class="layui-header">
-		<div class="layui-logo" style="font-size: 25px">图书馆</div>
+		<div class="layui-logo" style="font-size: 25px">图书馆管理端</div>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
 					<img src="<%=user.getUsername()%>"
 						 class="layui-nav-img">
-					<%=user.getReader()%>
+					管理员
 				</a>
 				<dl class="layui-nav-child">
 					<dd><a href="javascript:;" name="borrow"

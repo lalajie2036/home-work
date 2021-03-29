@@ -7,6 +7,11 @@ import java.io.IOException;
 @WebFilter(filterName = "AdminFilter", urlPatterns = "/login")
 public class AdminFilter implements Filter {
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
     public void doFilter(ServletRequest req,
                          ServletResponse resp,
                          FilterChain chain) throws IOException,
@@ -21,5 +26,10 @@ public class AdminFilter implements Filter {
             req.getRequestDispatcher("/login"
             ).forward(req, resp);
         }
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
