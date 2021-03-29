@@ -24,7 +24,7 @@
 			<li class="layui-nav-item"><a href="">商品管理</a></li>
 			<li class="layui-nav-item"><a href="">用户</a></li>
 			<li class="layui-nav-item">
-				<a href="javascript:;">其它系统</a>
+				<a href="javascript:">其它系统</a>
 				<dl class="layui-nav-child">
 					<dd><a href="">邮件管理</a></dd>
 					<dd><a href="">消息管理</a></dd>
@@ -34,7 +34,7 @@
 		</ul>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
-				<a href="javascript:;">
+				<a href="javascript:">
 					<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
 					贤心
 				</a>
@@ -52,27 +52,27 @@
 			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 			<ul class="layui-nav layui-nav-tree"  lay-filter="test">
 				<li class="layui-nav-item layui-nav-itemed">
-					<a class="" href="javascript:;">借阅服务</a>
+					<a class="" href="javascript:">借阅服务</a>
 					<dl class="layui-nav-child">
-						<dd><a href="javascript:;" name="borrow"
-						       title="查询图书"
-						       content="./searchBooks.jsp" id="1">查询图书
+						<dd><a href="javascript:" name="borrow"
+							   title="查询图书"
+							   content="./searchBooks.jsp" id="1">查询图书
 						</a></dd>
-						<dd><a href="javascript:;" name="borrow"
-						       title="借阅历史"
-						       content="./userHistory.jsp" id="2">
+						<dd><a href="javascript:" name="borrow"
+							   title="借阅历史"
+							   content="./userHistory.jsp" id="2">
 							借阅历史</a></dd>
-						<dd><a href="javascript:;" name="borrow"
-						       title="在借图书"
-						       content="./borrowList.jsp" id="3">
+						<dd><a href="javascript:" name="borrow"
+							   title="在借图书"
+							   content="./borrowList.jsp" id="3">
 							在借图书</a></dd>
 					</dl>
 				</li>
 				<li class="layui-nav-item">
-					<a href="javascript:;">读者服务</a>
+					<a href="javascript:">读者服务</a>
 					<dl class="layui-nav-child">
-						<dd><a href="javascript:;">个人信息</a></dd>
-						<dd><a href="javascript:;">收藏列表</a></dd>
+						<dd><a href="javascript:">个人信息</a></dd>
+						<dd><a href="javascript:">收藏列表</a></dd>
 					</dl>
 				</li>
 <%--				<li class="layui-nav-item"><a href="">云市场</a></li>--%>
@@ -109,7 +109,7 @@
             var id = $(this).attr("id");
             var content = $(this).attr("content");
             //判断标签是否存在
-            if ($("li[lay-id="+id+"]").length==0){
+            if ($("li[lay-id="+id+"]").length===0){
                 //添加新标签
                 element.tabAdd("tabTemp", {
                     title: $(this).attr("title"),
