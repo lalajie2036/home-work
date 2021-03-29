@@ -67,6 +67,30 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<script>
+					layui.use('form',function(){
+						var form = layui.form;
+
+						form.on('switch(admin)', function(data){
+							if(data.elem.checked){
+								<% request.getSession().setAttribute("role","admin"); %>
+							}else{
+								<% request.getSession().setAttribute("role","user"); %>
+							}
+						})
+					});
+				</script>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">管理员登录</label>
+				<div class="layui-input-block">
+					<label>
+						<input type="checkbox" lay-skin="switch"
+							   lay-filter="admin">
+					</label>
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<div class="layui-input-block" style="float: right">
 					<button class="layui-btn" lay-submit
 					        lay-filter="*">登录
@@ -75,7 +99,6 @@
 					</button>
 				</div>
 			</div>
-			<!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 		</form>
 	</div>
 </div>
@@ -85,7 +108,7 @@
     layui.use('form', function () {
         var form = layui.form;
 
-        //各种基于事件的操作，下面会有进一步介绍
+
     });
 </script>
 </body>

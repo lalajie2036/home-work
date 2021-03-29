@@ -1,14 +1,12 @@
 package cn.edu.niit.dao;
 
 import cn.edu.niit.db.JDBCUtil;
+import cn.edu.niit.javabean.Admin;
 import cn.edu.niit.javabean.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * @author Mister-Lu
- */
 public class LoginDao {
 
     public User selectOne(String username) {
@@ -30,5 +28,25 @@ public class LoginDao {
         }
 
         return user;
+    }
+
+    public Admin selectOne(String username, String password) {
+        Admin admin = null;
+        try (ResultSet resultSet =
+                     JDBCUtil.getInstance().executeQueryRS("select " +
+                                     "* " +
+                                     "from " +
+                                     "admin where username=?",
+                             new Object[]{username})) {
+
+            while (resultSet.next()) {
+                admin = new Admin(resultSet.getString("username"),
+                        resultSet.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return admin;
     }
 }

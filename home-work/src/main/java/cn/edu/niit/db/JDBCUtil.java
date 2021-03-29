@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * 对jdbc的完整封装
  *
+ * @author Mister-Lu
  */
 public class JDBCUtil {
 
@@ -24,7 +25,7 @@ public class JDBCUtil {
   private static  String password = "root";
   private static JDBCUtil instance = null;
 
-  private CallableStatement callableStatement = null;//创建CallableStatement对象
+  private CallableStatement callableStatement = null;
   private Connection conn = null;
   private PreparedStatement pst = null;
   private ResultSet rst = null;
