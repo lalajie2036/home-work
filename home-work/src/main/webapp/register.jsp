@@ -34,23 +34,11 @@
     <!-- 表单选项 -->
     <form class="layui-form" method="post" action="/register">
         <div class="layui-form-item">
-            <!-- 用户名 -->
+            <!-- 昵称 -->
             <div class="layui-inline" style="width: 85%">
                 <input type="text" id="user" name="reader" required
-                       lay-verify="required" placeholder="请输入你的名字"
+                       lay-verify="required" placeholder="请输入你的昵称"
                        autocomplete="off" class="layui-input">
-            </div>
-            <!-- 对号 -->
-            <div class="layui-inline">
-                <i class="layui-icon" id="ri"
-                   style="color: green;font-weight: bolder;"
-                   hidden></i>
-            </div>
-            <!-- 错号 -->
-            <div class="layui-inline">
-                <i class="layui-icon" id="wr"
-                   style="color: red; font-weight: bolder;"
-                   hidden>ဆ</i>
             </div>
         </div>
         <div class="layui-form-item">

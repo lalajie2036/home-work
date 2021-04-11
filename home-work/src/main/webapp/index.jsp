@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>layui.form小例子</title>
-	<link rel="stylesheet" href="./layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="/layui/css/layui.css" media="all">
 	<style>
 		html, body {
 			width: 100%;
@@ -70,12 +70,6 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">管理员登录</label>
-					<%--					<div class="layui-input-block">--%>
-					<%--						<input id="admin" type="checkbox"--%>
-					<%--							   lay-skin="switch"--%>
-					<%--							   lay-filter="admin">--%>
-					<%--					</div>--%>
 					<div class="layui-input-block">
 						<input type="radio" name="role" value="0"
 							   title="管理员">
