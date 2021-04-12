@@ -6,6 +6,9 @@ import cn.edu.niit.javabean.User;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Mister-Lu
+ */
 public class LoginService {
 
     private LoginDao loginDao = new LoginDao();
