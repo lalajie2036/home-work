@@ -1,10 +1,4 @@
-<%@ page import="cn.edu.niit.javabean.User" %><%--
-  Created by IntelliJ IDEA.
-  User: DaHa
-  Date: 2021/3/15
-  Time: 14:32
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="cn.edu.niit.javabean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -32,7 +26,7 @@
 		<div class="layui-logo" style="font-size: 25px">图书馆</div>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
-				<a href="javascript:;">
+				<a href="javascript:">
 					<img src="<%=user.getHeader()%>"
 						 class="layui-nav-img">
 					<%=user.getReader()%>

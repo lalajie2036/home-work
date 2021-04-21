@@ -121,10 +121,12 @@
 	layui.use(['element'], function () {
 		var element = layui.element;
 		var $ = layui.$;
+
 		$("[name=borrow]").click(function () {
 			//获取当前项的id和content
 			var id = $(this).attr("id");
 			var content = $(this).attr("content");
+
 			//判断标签是否存在
 			if ($("li[lay-id=" + id + "]").length == 0) {
 				//添加新标签

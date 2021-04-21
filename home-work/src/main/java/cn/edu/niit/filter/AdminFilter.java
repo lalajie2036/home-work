@@ -23,11 +23,9 @@ public class AdminFilter implements Filter {
         String role = req.getParameter("role");
 
         if ("0".equals(role)) {
-            req.getRequestDispatcher(
-                    "/admin/login").forward(req, resp);
+            req.getRequestDispatcher("/admin/login").forward(req, resp);
         } else {
-            req.getRequestDispatcher("/login"
-            ).forward(req, resp);
+            req.getRequestDispatcher("/login").forward(req, resp);
         }
     }
 

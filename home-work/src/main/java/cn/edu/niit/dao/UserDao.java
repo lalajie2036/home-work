@@ -72,4 +72,34 @@ public class UserDao {
                         register.getReader(),
                         register.getUsername()});
     }
+
+    public int updateOne(User user) {
+    int result = 0;
+    StringBuilder sb = new StringBuilder("update borrow_card " +
+            "set reader=?, cellphone=?, email=?, sex=?, " +
+            "borrow_card.`describe`=? ");
+    if (user.getHeader() != null) {
+        sb.append(", header=? where " +
+                "username=?");
+        result =
+                JDBCUtil.getInstance().executeUpdate(sb.toString(),
+                        new Object[]{user.getReader(),
+                                user.getCellphone(),
+                                user.getEmail(), user.isSex(),
+                                user.getDescribe(),
+                                user.getHeader(),
+                                user.getUsername()});
+    } else {
+        sb.append("where username=?");
+        result =
+                JDBCUtil.getInstance().executeUpdate(sb.toString(),
+                        new Object[]{user.getReader(),
+                                user.getCellphone(),
+                                user.getEmail(), user.isSex(),
+                                user.getDescribe(),
+                                user.getUsername()});
+    }
+    return result;
+}
+
 }
