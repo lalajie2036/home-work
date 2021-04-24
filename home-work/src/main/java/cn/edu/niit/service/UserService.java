@@ -31,8 +31,7 @@ public class UserService {
         }
     }
 
-    public String adminLogin(String username, String password,
-                             HttpSession session) {
+    public String adminLogin(String username, String password, HttpSession session) {
         Admin admin = userDao.selectOne(username, password);
         if (admin == null) {
             return "用户不存在";

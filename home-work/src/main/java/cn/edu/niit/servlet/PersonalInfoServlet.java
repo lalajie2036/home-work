@@ -29,14 +29,12 @@ public class PersonalInfoServlet extends HttpServlet {
     private UserService userService = new UserService();
 
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1. 接收参数
         User user = new User(
                 req.getParameter("username"),
@@ -60,8 +58,7 @@ public class PersonalInfoServlet extends HttpServlet {
                 //截取不同类型的文件（需自行判断）
                 String[] fileNames = fileName.split("\\.");
                 String uuid = UUID.randomUUID().toString();
-                String file =
-                        uuid + "." + fileNames[fileNames.length - 1];
+                String file = uuid + "." + fileNames[fileNames.length - 1];
                 //把文件写到指定路径
                 part.write(ConString.HEADER_FILE_DIR + file);
                 user.setHeader("/header/" + file);

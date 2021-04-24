@@ -25,15 +25,11 @@ public class StoreBookServlet extends HttpServlet {
     private final BookService bookService = new BookService();
 
     @Override
-    protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //1. 取参（req当前的页码, 每页的数量, 搜索）
-        String paramJson = IOUtils.toString(
-                req.getInputStream(), StandardCharsets.UTF_8);
-        HashMap parseObject =
-                JSON.parseObject(paramJson,
-                        HashMap.class);
+        String paramJson = IOUtils.toString(req.getInputStream(), StandardCharsets.UTF_8);
+        HashMap parseObject = JSON.parseObject(paramJson, HashMap.class);
         String username = (String) parseObject.get("user");
         String bookId = (String) parseObject.get("book");
 

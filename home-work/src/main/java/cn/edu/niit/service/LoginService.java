@@ -13,8 +13,7 @@ public class LoginService {
 
     private LoginDao loginDao = new LoginDao();
 
-    public String login(String username, String password,
-                        HttpSession session) {
+    public String login(String username, String password, HttpSession session) {
         User user = loginDao.selectOne(username);
         if (user == null) {
             return "用户不存在";

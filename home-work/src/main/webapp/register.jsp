@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./layui/css/layui.css">
     <style>
         .login-main {
-            width: 50%;
+            width: 30%;
             height: 50%;
             position: relative;
             top: 50%;
@@ -117,7 +117,7 @@
 <script src="./layui/layui.js"></script>
 <script>
     $('#rpwd').blur(function () {
-        if ($('#pwd').val() != $('#rpwd').val()) {
+        if ($('#pwd').val() !== $('#rpwd').val()) {
             $('#rpwr').removeAttr('hidden');
             $('#rpri').attr('hidden', 'hidden');
             layer.msg('两次输入密码不一致!');
@@ -125,7 +125,7 @@
             $('#rpri').removeAttr('hidden');
             $('#rpwr').attr('hidden', 'hidden');
         }
-        ;
+
     });
 
 </script>
