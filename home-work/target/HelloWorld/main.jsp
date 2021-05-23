@@ -26,7 +26,7 @@
 		<div class="layui-logo" style="font-size: 25px">图书馆</div>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
-				<a href="javascript:">
+				<a href="javascript:;">
 					<img src="<%=user.getHeader()%>"
 						 class="layui-nav-img">
 					<%=user.getReader()%>
@@ -121,10 +121,12 @@
 	layui.use(['element'], function () {
 		var element = layui.element;
 		var $ = layui.$;
+
 		$("[name=borrow]").click(function () {
 			//获取当前项的id和content
 			var id = $(this).attr("id");
 			var content = $(this).attr("content");
+
 			//判断标签是否存在
 			if ($("li[lay-id=" + id + "]").length == 0) {
 				//添加新标签

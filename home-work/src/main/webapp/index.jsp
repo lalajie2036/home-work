@@ -33,7 +33,7 @@
 			margin-bottom: 10px;
 		}
 		.b{
-			background: url("imgs/img21.jpg");
+			background: url("imgs/img.jpg");
 			width: 100%;
 			height: 100%;
 			position: absolute;

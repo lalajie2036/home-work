@@ -26,17 +26,26 @@
 			background: rgba(0, 150, 136, 0.1);
 			padding: 100px 80px 80px 50px;
 		}
-
 		.logo {
 			font-size: 30px;
 			width: 100%;
 			text-align: center;
 			margin-bottom: 10px;
 		}
-
+		.b{
+			background: url("imgs/img.jpg");
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			-webkit-filter: blur(60/@rem);
+			-moz-filter: blur(60/@rem);
+			-o-filter: blur(60/@rem);
+			-ms-filter: blur(60/@rem);
+			filter: blur(60/@rem);
+		}
 	</style>
 </head>
-<body>
+<body class="b">
 
 <%@include file="window.jsp" %>
 
