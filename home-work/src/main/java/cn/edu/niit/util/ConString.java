@@ -7,6 +7,5 @@ package cn.edu.niit.util;
  * @Date 2021/4/21
  **/
 public interface ConString {
-    String HEADER_FILE_DIR = "D://logs";
+    String HEADER_FILE_DIR = "D:\\header\\";
 }
-

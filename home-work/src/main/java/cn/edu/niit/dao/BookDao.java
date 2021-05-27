@@ -14,7 +14,8 @@ import java.util.List;
  * @Author Mister-Lu
  * @Date 2021/4/19
  **/
-public class BookDao {
+public class
+BookDao {
     public List<Book> selectAll(int pageNum, int pageSize) throws SQLException{
         String sql = "select books.*, book_sort.name as sort from books, book_sort where books.sort_id=book_sort.id limit ?,? ";
 

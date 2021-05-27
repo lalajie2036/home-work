@@ -30,23 +30,6 @@ public class JDBCUtil {
   private PreparedStatement pst = null;
   private ResultSet rst = null;
 
-/*	static {
-        try {
-            // 加载数据库驱动程序
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            System.out.println("加载驱动错误");
-            System.out.println(e.getMessage());
-        }
-    } */
-
-//  public JDBCUtil(String driver,String url ,String username,String password) {
-//    this.driver = driver;
-//    this.url = url;
-//    this.username = username;
-//    this.password = password;
-//  }
-
   public static JDBCUtil getInstance(){
     if (instance==null){
       return new JDBCUtil();

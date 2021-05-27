@@ -9,7 +9,6 @@ package cn.edu.niit.dao;
 import cn.edu.niit.db.JDBCUtil;
 import cn.edu.niit.javabean.Admin;
 import cn.edu.niit.javabean.User;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

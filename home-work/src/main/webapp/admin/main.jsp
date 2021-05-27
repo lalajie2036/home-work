@@ -28,7 +28,8 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src="<%=user.getUsername()%>"
+					<img src="http://t.cn/RCzsdCq"
+<%--							src="<%=user.getUsername()%>"--%>
 						 class="layui-nav-img">
 					管理员
 				</a>

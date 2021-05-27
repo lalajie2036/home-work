@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -35,7 +35,7 @@ public class PersonalInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //1. 接收参数
+        //接收参数
         User user = new User(
                 req.getParameter("username"),
                 req.getParameter("nickname"),
@@ -43,36 +43,39 @@ public class PersonalInfoServlet extends HttpServlet {
                 req.getParameter("cellphone"),
                 req.getParameter("email"),
                 req.getParameter("remarks"));
+        Part part = req.getPart("avatar");
+        if (part.getSize() > 0) {
+            //获取文件名
+//            String fileName = part.getSubmittedFileName();
+//            System.out.println("fileName"+fileName);
+            String header = part.getHeader("Content-Disposition");
+            String fileName = header.substring(header.indexOf("filename=\"") + 10, header.lastIndexOf("\""));
+            System.out.println(fileName);
+            //return fileName;
 
-        //从请求中取出文件
-        Collection<Part> parts = req.getParts();
-        //上传单个文件
-        try {
-            if (parts.size() > 1) {
-                //Servlet3.0将multipart/form-data的POST请求封装成Part，通过Part
-                // 对上传的文件进行操作。
-                //Part part = parts[0];//从上传的文件集合中获取Part对象
-                Part part = req.getPart("avatar");
-                //获取文件名
-                String fileName = part.getHeader("content-Disposition");
-                //截取不同类型的文件（需自行判断）
-                String[] fileNames = fileName.split("\\.");
-                String uuid = UUID.randomUUID().toString();
-                String file = uuid + "." + fileNames[fileNames.length - 1];
-                //把文件写到指定路径
-                part.write(ConString.HEADER_FILE_DIR + file);
-                user.setHeader("/header/" + file);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            String[] fileNames = fileName.split("\\.");
+            System.out.println("fileNames"+ Arrays.toString(fileNames));
+
+            String uuid = UUID.randomUUID().toString();
+            System.out.println("uuid"+uuid);
+
+            String file = uuid + "." + fileNames[fileNames.length - 1];
+            System.out.println("file"+file);
+
+            //把文件写到指定路径
+            part.write(ConString.HEADER_FILE_DIR + file);
+            System.out.println(ConString.HEADER_FILE_DIR + file+"");
+
+            user.setHeader("/header/" + file);
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
 
         String message = userService.uploadUserInfo(user, req.getSession());
 
-        //resp.getWriter().print("<script>location.reload()" +
-        //        "</script>");
+        //resp.getWriter().print("<script>location.reload()</script>");
+
         //转向会原页面，刷新页面
+        req.setAttribute("fresh", true);
         req.getRequestDispatcher("/personalInfo.jsp?message=" + message).forward(req, resp);
     }
 }
-

@@ -1,5 +1,5 @@
 <%@ page import="cn.edu.niit.javabean.User" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +7,7 @@
 	<meta name="viewport"
 		  content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>图书馆</title>
-	<link rel="stylesheet" href="/layui/css/layui.css"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
 	<style>
 		.layui-show{
 			width: 100%;
@@ -32,17 +32,15 @@
 					<%=user.getReader()%>
 				</a>
 				<dl class="layui-nav-child" style="height: fit-content">
-					<dd><a href="javascript:;" name="borrow"
-						   title="个人信息"
-						   content="./personalInfo.jsp" id="4">个人信息
+					<dd><a href="./personalInfo.jsp" target="content"
+						   title="个人信息" id="4">个人信息
 					</a></dd>
-					<dd><a href="javascript:;" name="borrow"
-						   title="系统设置"
-						   content="./searchBooks.jsp" id="1">系统设置
+					<dd><a href="./searchBooks.jsp" target="content"
+						   title="系统设置" id="1">系统设置
 					</a></dd>
 				</dl>
 			</li>
-			<li class="layui-nav-item"><a href="">退出</a></li>
+			<li class="layui-nav-item"><a href="./logOut">退出</a></li>
 		</ul>
 	</div>
 
@@ -53,61 +51,38 @@
 				<li class="layui-nav-item layui-nav-itemed">
 					<a href="javascript:;">图书服务</a>
 					<dl class="layui-nav-child">
-						<dd><a href="javascript:;" name="borrow"
-							   title="查询图书"
-							   content="./searchBooks.jsp" id="2"
-						>查询图书
-						</a></dd>
-						<dd><a href="javascript:;" name="borrow"
-							   title="借阅历史"
-							   content="./borrowHistory.jsp" id="3">
-							借阅历史</a></dd>
+						<dd><a href="./searchBooks.jsp" target="content" title="查询图书" id="2">查询图书</a></dd>
+						<dd><a href="./borrowHistory.jsp" target="content" title="借阅历史" id="3">借阅历史</a></dd>
 					</dl>
 				</li>
 				<li class="layui-nav-item">
 					<a href="javascript:;">读者服务</a>
 					<dl class="layui-nav-child">
-						<dd><a href="javascript:;" name="borrow"
-							   title="个人信息"
-							   content="./personalInfo.jsp" id="4">
-							个人信息</a></dd>
-						<dd><a href="javascript:;" name="borrow"
-							   title="图书收藏"
-							   content="./favoriteList.jsp" id="5">
-							图书收藏</a></dd>
-						<dd><a href="javascript:;" name="borrow"
-							   title="在借图书"
-							   content="./borrowList.jsp" id="6">
-							在借图书</a></dd>
+						<dd><a href="./personalInfo.jsp" target="content" title="个人信息" id="4">个人信息</a></dd>
+						<dd><a href="./favoriteList.jsp" target="content" title="图书收藏" id="5">图书收藏</a></dd>
+						<dd><a href="./borrowList.jsp"  target="content" title="在借图书" id="6">在借图书</a></dd>
 					</dl>
 				</li>
 				<li class="layui-nav-item">
-					<a href="javascript:;" name="borrow"
-					   title="留言板"
-					   content="./messageBoard.jsp" id="7">留言板</a>
+					<a href="./messageBoard.jsp" target="content" title="留言板" id="7">留言板</a>
 				</li>
 				<li class="layui-nav-item">
-					<a href="javascript:;" name="borrow"
-					   title="通知中心"
-					   content="./notification.jsp" id="8">通知中心</a>
+					<a href="./notification.jsp" target="content" title="通知中心" id="8">通知中心</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 
 	<div class="layui-body">
-		<div class="layui-tab layui-tab-brief" lay-filter="tabTemp"
-			 lay-allowClose="true"
-			 style="display: flex;flex-direction: column;height:
-		     100%;margin: 0;padding: 0;">
+		<iframe src="welcome.jsp" name="content" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>
+		<div class="layui-tab layui-tab-brief" lay-filter="tabTemp" lay-allowClose="true" style="display: flex;flex-direction: column;height:100%;margin: 0;padding: 0;">
 			<ul class="layui-tab-title">
-
 			</ul>
 			<div class="layui-tab-content"
 				 style="flex-grow: 1;">
-
 			</div>
 		</div>
+
 	</div>
 
 	<div class="layui-footer">
@@ -128,7 +103,7 @@
 			var content = $(this).attr("content");
 
 			//判断标签是否存在
-			if ($("li[lay-id=" + id + "]").length == 0) {
+			if ($("li[lay-id=" + id + "]").length === 0) {
 				//添加新标签
 				element.tabAdd("tabTemp", {
 					title: $(this).attr("title"),

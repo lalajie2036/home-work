@@ -11,6 +11,5 @@
         <module name="HelloWorld" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
   </component>
 </project>

@@ -1,13 +1,11 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="cn.edu.niit.javabean.Book" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Layui</title>
+	<title>搜索图书</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport"
@@ -29,15 +27,10 @@
 	</style>
 </head>
 <body>
-
-<div class="layui-nav-item demoTable"
-	 style="display: flex;justify-content: flex-end;">
-	<input id="keyword" type="text" class="layui-input"
-		   style="padding: 0;display: inline;width: 300px;"
-		   placeholder="请输入搜索信息..."/>
-	<button id="search" class="layui-btn" data-type="getCheckLength"
-			style="margin-left: 20px;">搜索
-	</button>
+<br/>
+<div class="layui-nav-item demoTable" style="display: flex;justify-content: flex-end;">
+	<input id="keyword" type="text" class="layui-input" style="padding: 0;display: inline;width: 300px;" placeholder="请输入搜索信息..."/>
+	<button id="search" class="layui-btn" data-type="getCheckLength" style="margin-left: 20px;">搜索</button>
 </div>
 
 <div class="layui-form" id="content">
@@ -191,6 +184,5 @@
 			}
 	);
 </script>
-
 </body>
 </html>
