@@ -2,169 +2,133 @@
 <html>
 <head>
 	<title>图书收藏</title>
-</head>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-
-	<!-- 搜索条件表单 -->
-	<div class="demoTable layui-form">
-		<div class="layui-inline">
-			<input class="layui-input" name="bname" id="bname" autocomplete="off"  placeholder="请输入名称">
-		</div>
-		<div class="layui-inline">
-			<input class="layui-input" name="rname" id="rname" autocomplete="off" placeholder="请输入用户">
-		</div>
-		<div class="layui-inline">
-			<div class="layui-input-block">
-				<select name="state" id="state">
-					<option value="">图书状态</option>
-					<option value="2">未收藏</option>
-					<option value="1">已收藏</option>
-				</select>
-			</div>
-		</div>
-		<button class="layui-btn" data-type="reload">搜索</button>
-	</div>
-	<%--    <a  style="margin-left: 70px" class="layui-btn layui-btn-normal" onclick="add();">添加图书</a>--%>
-</div>
-
-<table class="layui-hide" id="demo" lay-filter="test"></table>
-
-<div class="layui-tab-item layui-show">
-	<div id="pageDemo"></div>
-</div>
-<script type="text/html" id="barDemo">
-	<%--<a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="detail">查看</a>--%>
-	<%--<a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>--%>
-	<%--<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>--%>
-	{{#  if(d.state =="2"){ }}
-	<a class="layui-btn layui-btn-normal backBook" lay-event="backBook">确认归还</a>
-	{{#  } }}
-	{{#  if(d.state =="1"){ }}
-	<button class="layui-btn  lend layui-btn-disabled backBook" lay-event="lend" disabled="disabled">已归还</button>
-	{{#  } }}
-</script>
-<div id="testDiv"></div>
-<script>
-	//JavaScript代码区域
-	layui.use('element', function(){
-		var element = layui.element;
-
-	});
-	var url = "${pageContext.request.contextPath}/"
-</script>
-
-<script src="${pageContext.request.contextPath}/layui/layui.js"></script>
-<script>
-
-
-	layui.config({
-		version: '1554901098009' //为了更新 js 缓存，可忽略
-	});
-
-
-	layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider','laytpl'], function(){
-		var laydate = layui.laydate //日期
-				,laypage = layui.laypage //分页
-				,layer = layui.layer //弹层
-				,table = layui.table //表格
-				,carousel = layui.carousel //轮播
-				,upload = layui.upload //上传
-				,element = layui.element //元素操作
-				,slider = layui.slider //滑块
-				,laytpl = layui.laytpl
-
-		//执行一个 table 实例
-		table.render({
-			elem: '#demo'
-			,height: 550
-			,url: '${pageContext.request.contextPath}/listDisBackBook.do?power=1' //数据接口
-			,title: '图书表'
-			,page: true
-			,limit: 6
-			,limits: [5,10,15,20]
-			,cols: [[ //表头
-				{type: 'checkbox', fixed: 'left'}
-				,{field: 'readerId', title: '借阅号', width:150, sort: true}
-				,{field: 'rName', title: '借阅人', width:150}
-				,{field: 'bName', title: '书籍名称', width: 200}
-				,{field: 'lendDate', title: '借阅时间', width:200, sort: true}
-				,{field: 'backDate', title: '最晚归还时间', width: 200}
-				,{field: 'fine', title: '罚款', width: 150,templet: function(d){
-						return d.fine=="0"?'':'<a style="font-size:1.5em;color: red;font-weight: bold">'+d.fine+'元</a>';
-					}}
-				,{fixed: 'right',title: '操作', width: 200, align:'center', toolbar: '#barDemo'}
-			]]
-			//用于搜索结果重载
-			,id: 'testReload'
-		});
-
-		var $ = layui.$, active = {
-			reload: function(){
-				var rname = $('#rname');
-				var bname = $('#bname');
-				var state = $('#state');
-				//执行重载
-				table.reload('testReload', {
-					//一定要加不然乱码
-					method: 'post'
-					,page: {
-						curr: 1 //重新从第 1 页开始
-					}
-					,where: {
-						//bname表示传到后台的参数,bname.val()表示具体数据
-						rname: rname.val(),
-						bname: bname.val(),
-						state: state.val()
-					}
-				});
-			}
-		};
-		$('.demoTable .layui-btn').on('click', function(){
-			var type = $(this).data('type');
-			active[type] ? active[type].call(this) : '';
-		});
-
-		//监听行工具事件
-		table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-			var data = obj.data //获得当前行数据
-					,layEvent = obj.event; //获得 lay-event 对应的值
-			if(layEvent === 'backBook'){
-				layer.confirm('确认归还此图书吗？', function(index){
-					backBook(data,obj,index);
-				});
-			}
-		});
-		function backBook(data1,obj,index){
-			$.ajax({
-				url:'${pageContext.request.contextPath}/backBook.do?reader_id='+data1.reader_id+'&book_id='+data1.book_id,
-				dataType:'json',
-				type:'post',
-				success:function (data) {
-					if (data.success){
-						//当前行数
-						var i =$("tr").index(obj.tr)-1;
-						//获取当前dom
-						var dom = $('.backBook').eq(i);
-						if(dom.hasClass('layui-btn-normal')){
-							dom.removeClass('layui-btn-normal');
-							//变为禁用
-							dom.addClass('layui-btn-disabled');
-							//去除点击事件
-							dom.attr("disabled",true);
-							dom.attr("lay-event","");
-
-							dom.html(data.message);
-						}
-						layer.close(index);
-					}else{
-						layer.msg(data.message);
-					}
-				}
-			})
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="./layui/css/layui.css"
+		  media="all">
+	<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+	<style>
+		.wrap-div {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			overflow: hidden;
+			float: left;
+			width: 100%;
+			word-break: break-all;
+			text-overflow: ellipsis;
 		}
-	});
+	</style>
+</head>
+<body>
 
+<div class="layui-nav-item demoTable"
+	 style="display: flex;justify-content: flex-end;">
+	<input type="text" class="layui-input"
+		   style="padding: 0;display: inline;width: 300px;"
+		   placeholder="请输入搜索信息..."/>
+	<button class="layui-btn" data-type="getCheckLength"
+			style="margin-left: 20px;">搜索
+	</button>
+</div>
+
+<div class="layui-form" id="content">
+	<table class="layui-table" style="table-layout:fixed">
+		<colgroup>
+			<col width="150">
+			<col width="150">
+			<col width="150">
+			<col width="150">
+			<col width="180">
+
+		</colgroup>
+		<thead>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>描述</th>
+			<th>操作</th>
+
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="storeBooks" items="${sessionScope.storeBooks}" varStatus="status">
+
+			<tr>
+				<td>${storeBooks.name}</td>
+				<td>${storeBooks.author}</td>
+				<td class="wrap-td">
+					<div class="wrap-div">${storeBooks.description}</div>
+				</td>
+
+				<td>
+					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+					<a class="layui-btn layui-btn-xs" lay-event="edit">取消收藏</a>
+				</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+</div>
+
+<div id="page" style="display: flex;justify-content: center;"  ></div>
+
+<script src="./layui/layui.js" charset="UTF-8"></script>
+<script src = "./layui/lay/modules/jquery.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+<script>
+	layui.use(['laypage', 'layer'], function () {
+				var laypage = layui.laypage
+						, layer = layui.layer;
+				var $ = layui.$;
+				var count = 0, page = 1, limit = 5;
+
+				$(document).ready(function () {
+					//进入页面先加载数据
+					getContent(1, limit);
+					//得到数量count后，渲染表格
+
+					laypage.render({
+						elem: 'page',
+						count: count,
+						curr: page,
+						limits: [5, 10, 15, 20],
+						limit: limit,
+						theme: '#1E9FFF',
+						layout: ['count', 'prev', 'page', 'next', 'limit'],
+						jump: function (obj, first) {
+							if (!first) {
+								getContent(obj.curr, obj.limit);
+								//更新当前页码和当前每页显示条数
+								page = obj.curr;
+								limit = obj.limit;
+							}
+						}
+					});
+				});
+
+				function getContent(page, size) {
+					$.ajax({
+						type: 'POST',
+						url: "/storeBooks",
+						async: false, //开启同步请求，为了保证先得到count再渲染表格
+						data: JSON.stringify({
+							pageNum: page,
+							pageSize: size
+						}),
+						contentType: "application/json;charset=UTF-8",
+						success: function (data) {
+							$('#content').load(location.href + " #content");
+							//count从Servlet中得到
+							count = data;
+						}
+					});
+				}
+			}
+	);
 </script>
+
 </body>
 </html>

@@ -1,11 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>搜索图书</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>图书</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport"
@@ -27,10 +24,14 @@
 	</style>
 </head>
 <body>
-<br/>
-<div class="layui-nav-item demoTable" style="display: flex;justify-content: flex-end;">
-	<input id="keyword" type="text" class="layui-input" style="padding: 0;display: inline;width: 300px;" placeholder="请输入搜索信息..."/>
-	<button id="search" class="layui-btn" data-type="getCheckLength" style="margin-left: 20px;">搜索
+
+<div class="layui-nav-item demoTable"
+	 style="display: flex;justify-content: flex-end;">
+	<input id="keyword" type="text" class="layui-input"
+		   style="padding: 0;display: inline;width: 300px;"
+		   placeholder="请输入搜索信息..."/>
+	<button id="search" class="layui-btn" data-type="getCheckLength"
+			style="margin-left: 20px;">搜索
 	</button>
 </div>
 
@@ -53,8 +54,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="book" items="${sessionScope.books}"
-				   varStatus="status">
+		<c:forEach var="book" items="${sessionScope.books}" varStatus="status">
 			<tr>
 				<td>${book.name}</td>
 				<td>${book.author}</td>
@@ -111,7 +111,7 @@
 						type: 'POST',
 						url: "/book/store",
 						data: JSON.stringify({
-							user: ${sessionScope.id}+"",
+							user: ${sessionScope.user.id}+"",
 							book: bookid
 						}),
 						contentType: "application/json;charset=utf-8",
@@ -132,7 +132,7 @@
 				$(document).on('click', '#borrow', function () {
 					//可以获取第一列的内容，也就是name的值
 					var name = $(this).parents("tr").find("td").eq(0).text();
-					//也可以获取属性中的值
+					//也可以获取属性中0的值
 					console.log($(this).attr("index"))
 					layer.msg(name)
 				})
@@ -185,5 +185,6 @@
 			}
 	);
 </script>
+
 </body>
 </html>

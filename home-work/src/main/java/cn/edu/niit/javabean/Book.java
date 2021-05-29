@@ -29,4 +29,11 @@ public class Book {
         this.sort = sort;
         this.description = description;
     }
+
+    public Book(String id, String name, String author, String description) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.description = description;
+    }
 }

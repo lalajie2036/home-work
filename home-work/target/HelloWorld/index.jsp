@@ -51,54 +51,40 @@
 
 <div class="login">
 	<div class="login-layout">
-		<form class="layui-form" method="post"
-			  action="/login">
+		<form class="layui-form" method="post" action="/login">
 			<div class="layui-form-item">
-				<label class="layui-form-label logo">
-					图书馆
-				</label>
+				<label class="layui-form-label logo">图书馆</label>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label"
-					   style="text-align: center">用户名
-				</label>
+				<label class="layui-form-label" style="text-align: center">用户名</label>
 				<div class="layui-input-block">
-					<input type="text" name="username"
-						   placeholder="请输入"
-						   autocomplete="off" class="layui-input">
+					<input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label" style="text-align:
                 center">密码</label>
 				<div class="layui-input-block">
-					<input type="password" name="password"
-						   placeholder="请输入"
-						   autocomplete="off" class="layui-input">
+					<input type="password" name="password" placeholder="请输入" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<div class="layui-input-block">
-						<input type="radio" name="role" value="0"
-							   title="管理员">
-						<input type="radio" name="role" value="1"
-							   title="用户" checked>
+						<input type="radio" name="role" value="0" title="管理员">
+						<input type="radio" name="role" value="1" title="用户" checked>
 					</div>
 				</div>
 				<div class="layui-input-block" style="float: right">
-					<button class="layui-btn" lay-submit
-							lay-filter="*">登录
+					<button class="layui-btn" lay-submit lay-filter="*">登录
 					</button>
-					<a href="./register.jsp"><span
-							class="layui-btn layui-btn-primary">注册</span></a>
+					<a href="./register.jsp"><span class="layui-btn layui-btn-primary">注册</span></a>
 				</div>
 			</div>
 			<!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 		</form>
 	</div>
 </div>
-
 <script src="/layui/layui.js"></script>
 <script>
 	layui.use('form', function () {

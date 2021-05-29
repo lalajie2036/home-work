@@ -82,4 +82,47 @@ BookDao {
                 });
         return result;
     }
+    /**
+     * 查询收藏图书
+     * @return
+     */
+    public List<Book> selectAllStore(int pageNum, int pageSize,String id){
+        String sql = "select books.author,books.name,books.description,borrow_card.id\n" +
+                "from books left join borrow_books on borrow_books.book_id = books.id left join borrow_card" +
+                "  on borrow_card.id = borrow_books.card_id where not isnull (borrow_card.id) and " +
+                "borrow_card.id = ? limit ?,?";
+        List<Book> book =new ArrayList<>();
+        try(ResultSet rs = JDBCUtil.getInstance().executeQueryRS(sql,
+                new Object[]{id,(pageNum - 1) * pageSize, pageSize})) {
+            while (rs.next()){
+                Book books = new Book(
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("author"),
+                        rs.getString("description")
+
+                );
+                book.add(books);
+                System.out.println(book);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return book;
+    }
+
+    public int countBorrowHistoryBooks(String userId) {
+        String sql ="select count(*) as borrowHistoryNum  FROM borrow_books where card_id = ?";
+        try (ResultSet rs = JDBCUtil.getInstance().executeQueryRS(sql, new Object[]{userId})) {
+            while (rs.next()) {
+                return rs.getInt("borrowHistoryNum");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        return 0;
+    }
 }

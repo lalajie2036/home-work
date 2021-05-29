@@ -8,6 +8,10 @@
         <servlet-name>SearchBooksServlet</servlet-name>
         <servlet-class>cn.edu.niit.servlet.SearchBooksServlet</servlet-class>
     </servlet>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
     <servlet-mapping>
         <servlet-name>SearchBooksServlet</servlet-name>
         <url-pattern>/book/search</url-pattern>

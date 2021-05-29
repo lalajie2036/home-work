@@ -368,9 +368,8 @@
         <label class="layui-form-label">单行选择框</label>
         <div class="layui-input-block">
             <select name="interest" lay-filter="aihao">
-                <option value=""></option>
                 <option value="0">写作</option>
-                <option value="1" selected="">阅读</option>
+                <option value="1">阅读</option>
                 <option value="2">游戏</option>
                 <option value="3">音乐</option>
                 <option value="4">旅行</option>

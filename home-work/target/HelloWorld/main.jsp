@@ -4,8 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport"
-		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>图书馆</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css"/>
 	<style>
@@ -27,16 +26,13 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src="<%=user.getHeader()%>"
-						 class="layui-nav-img">
+					<img src="<%=user.getHeader()%>" class="layui-nav-img">
 					<%=user.getReader()%>
 				</a>
 				<dl class="layui-nav-child" style="height: fit-content">
-					<dd><a href="./personalInfo.jsp" target="content"
-						   title="个人信息" id="4">个人信息
+					<dd><a href="./personalInfo.jsp" target="content" title="个人信息" id="4">个人信息
 					</a></dd>
-					<dd><a href="./searchBooks.jsp" target="content"
-						   title="系统设置" id="1">系统设置
+					<dd><a href="./searchBooks.jsp" target="content" title="系统设置" id="1">系统设置
 					</a></dd>
 				</dl>
 			</li>
@@ -78,8 +74,7 @@
 		<div class="layui-tab layui-tab-brief" lay-filter="tabTemp" lay-allowClose="true" style="display: flex;flex-direction: column;height:100%;margin: 0;padding: 0;">
 			<ul class="layui-tab-title">
 			</ul>
-			<div class="layui-tab-content"
-				 style="flex-grow: 1;">
+			<div class="layui-tab-content" style="flex-grow: 1;">
 			</div>
 		</div>
 

@@ -5,6 +5,7 @@ import cn.edu.niit.javabean.Admin;
 import cn.edu.niit.javabean.User;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @ClassName UserService
@@ -67,5 +68,14 @@ public class UserService {
             return "更新成功";
         }
         return "更新失败";
+    }
+
+    public List<User> searchUser(int pageNum, int pageSize) {
+        List<User> users = userDao.selectUser(pageNum, pageSize);
+        return  users;
+    }
+
+    public int searchCountUser() {
+        return userDao.countUser();
     }
 }

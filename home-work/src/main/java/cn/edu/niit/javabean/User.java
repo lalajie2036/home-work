@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
  * @author Mister-Lu
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    private String id;
     private String username;
     private String password;
     private String reader;
@@ -43,5 +43,17 @@ public class User {
         this.cellphone = cellphone;
         this.email = email;
         this.describe = remarks;
+    }
+
+    public User(String id, String username, String reader, String header, String cellPhone, String describe, String email, boolean sex) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.reader = reader;
+        this.header = header;
+        this.cellphone = cellPhone;
+        this.sex = sex;
+        this.email = email;
+        this.describe = describe;
     }
 }

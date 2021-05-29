@@ -23,8 +23,7 @@
 				<div class="layui-card-body" pad15>
 					<div class="layui-row">
 						<div class="layui-col-md2" style="display: flex;justify-content: flex-end;">
-							<img class="layui-header"
-								 src="<jsp:getProperty name="user" property="header"/>" alt="avatar"/>
+							<img class="layui-header" src="<jsp:getProperty name="user" property="header"/>" alt="avatar"/>
 						</div>
 						<div class="layui-col-md10">
 							<form action="${pageContext.request.contextPath}/personal/upload" method="post" enctype="multipart/form-data">
@@ -41,9 +40,7 @@
 									<div class="layui-form-item">
 										<label class="layui-form-label">昵称</label>
 										<div class="layui-input-inline">
-											<input type="text" name="nickname"
-											   value="<jsp:getProperty name="user" property="reader"/>"
-
+											<input type="text" name="nickname" value="<jsp:getProperty name="user" property="reader"/>"
 												   lay-verify="nickname" autocomplete="off" placeholder="请输入昵称" class="layui-input">
 										</div>
 									</div>
@@ -71,25 +68,17 @@
 									<div class="layui-form-item">
 										<label class="layui-form-label">手机</label>
 										<div class="layui-input-inline">
-											<input type="text"
-												   name="cellphone"
-												   placeholder="请输入手机号"
+											<input type="text" name="cellphone" placeholder="请输入手机号"
 												   value="<jsp:getProperty name="user" property="cellphone"/>"
-												   lay-verify="phone"
-												   autocomplete="off"
-												   class="layui-input">
+												   lay-verify="phone" autocomplete="off" class="layui-input">
 										</div>
 									</div>
 									<div class="layui-form-item">
 										<label class="layui-form-label">邮箱</label>
 										<div class="layui-input-inline">
-											<input type="text"
-												   name="email"
-												   placeholder="请输入邮箱"
+											<input type="text" name="email" placeholder="请输入邮箱"
 												   value="<jsp:getProperty name="user" property="email"/>"
-												   lay-verify="email"
-												   autocomplete="off"
-												   class="layui-input">
+												   lay-verify="email" autocomplete="off" class="layui-input">
 										</div>
 									</div>
 									<div class="layui-form-item layui-form-text">
@@ -101,12 +90,8 @@
 									</div>
 									<div class="layui-form-item">
 										<div class="layui-input-block">
-											<input type="submit"
-												   class="layui-btn"
-												   value="确认修改"
-												   lay-filter="setmyinfo"/>
-											<button type="reset"
-													class="layui-btn layui-btn-primary">
+											<input type="submit" class="layui-btn" value="确认修改" lay-filter="setmyinfo"/>
+											<button type="reset" class="layui-btn layui-btn-primary">
 												重新填写
 											</button>
 										</div>

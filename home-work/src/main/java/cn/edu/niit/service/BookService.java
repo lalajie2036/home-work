@@ -38,5 +38,15 @@ public class BookService {
             return "借阅失败";
         }
     }
+
+    public List<Book> selectBorrowHistoryBook(int pageNum, int pageSize, String userId) {
+        String id = null;
+        List<Book> book = bookDao.selectAllStore(pageNum, pageSize,id);
+        return book;
+    }
+
+    public int countBorrowHistoryNum(String userId) {
+        return  bookDao.countBorrowHistoryBooks(userId);
+    }
 }
 

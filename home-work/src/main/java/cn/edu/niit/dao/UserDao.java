@@ -11,6 +11,8 @@ import cn.edu.niit.javabean.Admin;
 import cn.edu.niit.javabean.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
 
@@ -101,4 +103,41 @@ public class UserDao {
     return result;
 }
 
+    public List<User> selectUser(int pageNum, int pageSize) {
+        String sql ="select * from borrow_card limit ?,?";
+        List<User> users = new ArrayList<>();
+        try (ResultSet resultSet = JDBCUtil.getInstance().executeQueryRS(sql,
+                new Object[]{(pageNum - 1) * pageSize, pageSize})) {
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getString("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("reader"),
+                        resultSet.getString("header"),
+                        resultSet.getString("cellPhone"),
+                        resultSet.getString("describe"),
+                        resultSet.getString("email"),
+                        resultSet.getBoolean("sex"));
+                users.add(user);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+    public  int countUser(){
+        String sql ="SELECT count(*) as userNum FROM borrow_card";
+        try (ResultSet rs = JDBCUtil.getInstance().executeQueryRS(sql, new Object[]{})) {
+            while (rs.next()) {
+                return rs.getInt("userNum");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        return 0;
+
+    }
 }

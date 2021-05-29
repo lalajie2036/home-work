@@ -1,128 +1,141 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-	<title>用户未还图书</title>
+	<title>借阅历史</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="./layui/css/layui.css"
+		  media="all">
+	<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+	<style>
+		.wrap-div {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			overflow: hidden;
+			float: left;
+			width: 100%;
+			word-break: break-all;
+			text-overflow: ellipsis;
+		}
+	</style>
 </head>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
+<body>
 
-	<!-- 搜索条件表单 -->
-	<div class="demoTable layui-form">
-		<div class="layui-inline">
-			<input class="layui-input" name="bname" id="bname" autocomplete="off"  placeholder="请输入名称">
-		</div>
-		<div class="layui-inline">
-			<div class="layui-input-block">
-				<select name="state" id="state">
-					<option value="">请选择归还状态</option>
-					<option value="2">未还</option>
-					<option value="1">已还</option>
-				</select>
-			</div>
-		</div>
-		<button class="layui-btn" data-type="reload"   lay-filter="reset" >搜索</button>
-	</div>
-
-
+<div class="layui-nav-item demoTable"
+	 style="display: flex;justify-content: flex-end;">
+	<input type="text" class="layui-input"
+		   style="padding: 0;display: inline;width: 300px;"
+		   placeholder="请输入搜索信息..."/>
+	<button class="layui-btn" data-type="getCheckLength"
+			style="margin-left: 20px;">搜索
+	</button>
 </div>
 
+<div class="layui-form" id="content">
+	<table class="layui-table" style="table-layout:fixed">
+		<colgroup>
+			<col width="150">
+			<col width="150">
+			<col width="150">
+			<col width="150">
+			<col width="150">
+			<col width="200">
+			<col>
+			<col width="180">
+		</colgroup>
+		<thead>
+		<tr>
+			<th>书名</th>
+			<th>作者</th>
+			<th>描述</th>
+			<th>借书时间</th>
+			<th>归还时间</th>
+			<th>归还情况</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="borrowHistoryBooks" items="${sessionScope.historyBooks}" varStatus="status">
 
-<table class="layui-hide" id="demo" lay-filter="test"></table>
-
-<div class="layui-tab-item layui-show">
-	<div id="pageDemo"></div>
+			<tr>
+				<td>${borrowHistoryBooks.name}</td>
+				<td>${borrowHistoryBooks.author}</td>
+				<td class="wrap-td">
+					<div class="wrap-div">${borrowHistoryBooks.description}</div>
+				</td>
+				<td >${borrowHistoryBooks.borrow_date}</td>
+				<td >${borrowHistoryBooks.return_date}</td>
+				<td >${borrowHistoryBooks.illegal}</td>
+				<td>
+					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+					<a class="layui-btn layui-btn-xs" lay-event="edit">删除</a>
+				</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
 </div>
 
-<script type="text/html" id="barDemo">
-	{{#  if(d.state =="2"){ }}
-	<p style="color:limegreen;font-size:1.3em;">未还</p>
-	{{#  } }}
-	{{#  if(d.state =="1"){ }}
-	<p style="color:red;font-size:1.3em;" >已还</p>
-	{{#  } }}
-</script>
-<div id="testDiv"></div>
+<div id="page" style="display: flex;justify-content: center;"  ></div>
+
+<script src="./layui/layui.js" charset="UTF-8"></script>
+<script src = "./layui/lay/modules/jquery.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 <script>
-	//JavaScript代码区域
-	layui.use('element', function(){
-		var element = layui.element;
+	layui.use(['laypage', 'layer'], function () {
+				var laypage = layui.laypage
+						, layer = layui.layer;
+				var $ = layui.$;
+				var count = 0, page = 1, limit = 5;
 
-	});
-	var url = "${pageContext.request.contextPath}/"
-</script>
+				$(document).ready(function () {
+					//进入页面先加载数据
+					getContent(1, limit);
+					//得到数量count后，渲染表格
 
-<script src="${pageContext.request.contextPath}/layui/layui.js"></script>
-<script>
-
-
-	layui.config({
-		version: '1554901098009' //为了更新 js 缓存，可忽略
-	});
-
-
-	layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider','laytpl'], function(){
-		var laydate = layui.laydate //日期
-				,laypage = layui.laypage //分页
-				,layer = layui.layer //弹层
-				,table = layui.table //表格
-				,carousel = layui.carousel //轮播
-				,upload = layui.upload //上传
-				,element = layui.element //元素操作
-				,slider = layui.slider //滑块
-				,laytpl = layui.laytpl
-
-		//执行一个 table 实例
-		table.render({
-			elem: '#demo'
-			,height: 550
-			,url: '${pageContext.request.contextPath}/listDisBackBook' //数据接口
-			,title: '图书表'
-			,page: true
-			,limit: 6
-			,limits: [5,10,15,20]
-			,cols: [[ //表头
-				{type: 'checkbox', fixed: 'left'}
-				,{field: 'readerId', title: '借阅号', width:200, sort: true}
-				,{field: 'bookId', title: '图书ID', width: 200}
-				,{field: 'bName', title: '名称', width: 300}
-				,{field: 'lendDate', title: '借阅时间', width:200, sort: true}
-				,{field: 'backDate', title: '最晚归还时间', width: 200}
-				,{field: 'fine', title: '产生罚款罚款', width: 100,templet: function(d){
-						return d.fine=="0"?'':'<a style="font-size:1.5em;color: red;font-weight: bold">'+d.fine+'元</a>';
-					}}
-				,{fixed: 'right', title: '操作',width: 200, align:'center', toolbar: '#barDemo'}
-			]]
-
-			//用于搜索结果重载
-			,id: 'testReload'
-		});
-		var $ = layui.$, active = {
-			reload: function(){
-				var bname = $('#bname');
-				var state = $('#state');
-				//执行重载
-				table.reload('testReload', {
-					//一定要加不然乱码
-					method: 'post'
-					,page: {
-						curr: 1 //重新从第 1 页开始
-					}
-					,where: {
-						//bname表示传到后台的参数,bname.val()表示具体数据
-						bname: bname.val(),
-						state: state.val()
-					}
+					laypage.render({
+						elem: 'page',
+						count: count,
+						curr: page,
+						limits: [5, 10, 15, 20],
+						limit: limit,
+						theme: '#1E9FFF',
+						layout: ['count', 'prev', 'page', 'next', 'limit'],
+						jump: function (obj, first) {
+							if (!first) {
+								getContent(obj.curr, obj.limit);
+								//更新当前页码和当前每页显示条数
+								page = obj.curr;
+								limit = obj.limit;
+							}
+						}
+					});
 				});
+
+				function getContent(page, size) {
+					$.ajax({
+						type: 'POST',
+						url: "/borrowHistoryBooks",
+						async: false, //开启同步请求，为了保证先得到count再渲染表格
+						data: JSON.stringify({
+							pageNum: page,
+							pageSize: size
+						}),
+						contentType: "application/json;charset=UTF-8",
+						success: function (data) {
+							$('#content').load(location.href + " #content");
+							//count从Servlet中得到
+							count = data;
+						}
+					});
+				}
 			}
-		};
-		$('.demoTable .layui-btn').on('click', function(){
-			var type = $(this).data('type');
-			active[type] ? active[type].call(this) : '';
-		});
-
-
-	});
-
+	);
 </script>
+
 </body>
 </html>
+
