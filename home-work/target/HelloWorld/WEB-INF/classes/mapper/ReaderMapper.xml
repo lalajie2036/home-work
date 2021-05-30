@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.niit.mapper.ReaderMapper">
+<sql id="readerSQL">
+    id,
+reader_id,
+name,
+password,
+sex,
+birthday,
+telephone,
+address,
+card_state
+</sql>
+<sql id="readerSQLNo">
+    reader_id,
+name,
+password,
+sex,
+birthday,
+telephone,
+address,
+card_state
+</sql>
+    <update id="updateReader">
+         UPDATE  reader_info SET reader_id=#{readerId},
+        name=#{name},
+        sex=#{sex},
+        birthday=#{birthday},
+        address=#{address},
+        telephone=#{telephone},
+        card_state=#{cardState}
+        where id=#{id}
+    </update>
+    <update id="updpwd">
+        update reader_info set password=#{password} where reader_id=#{readerId}
+    </update>
+    <delete id="delReader">
+        DELETE from  reader_info WHERE id=#{id}
+    </delete>
+
+    <!--用户登录 验证-->
+    <select id="select" resultType="cn.edu.niit.entity.ReaderInfo">
+        SELECT reader_id,name,password FROM reader_info
+        WHERE  reader_id=#{readerId} and password=#{password}
+    </select>
+
+    <!-- 是否存在用户 -->
+    <select id="checkReader" resultType="Integer"  parameterType="Integer">
+        select count(*) from  reader_info WHERE reader_id=#{readerId}
+    </select>
+
+    <select id="queryList" resultType="cn.edu.niit.entity.ReaderInfo">
+        SELECT * from reader_info
+<!--        <where>-->
+<!--            <if test="readerId !=null and readerId != ''">-->
+<!--                and reader_id LIKE concat("%",#{readerId},"%")-->
+<!--            </if>-->
+<!--            <if test="name!=null and name != ''">-->
+<!--                and `name` LIKE concat("%",#{name},"%")-->
+<!--            </if>-->
+<!--        </where>-->
+    </select>
+    <select id="selectById" resultType="cn.edu.niit.entity.ReaderInfo">
+         SELECT <include refid="readerSQL"></include>
+        from reader_info
+        where id = #{id}
+    </select>
+
+    <!-- 添加用户 -->
+    <insert id="addReader" parameterType="cn.edu.niit.entity.ReaderInfo">
+        INSERT INTO reader_info(
+        <include refid="readerSQLNo"/>
+        ) VALUES(#{readerId},#{name},123,#{sex},#{birthday},#{address},#{telephone},#{cardState})
+    </insert>
+    <insert id="addReade">
+        INSERT INTO reader_info(
+        `reader_id`,`name`,`password`,`telephone`,`birthday`
+        ) VALUES(#{readerId},#{name},#{password},#{telephone},#{birthday})
+    </insert>
+</mapper>

@@ -39,14 +39,15 @@ public class BookService {
         }
     }
 
-    public List<Book> selectBorrowHistoryBook(int pageNum, int pageSize, String userId) {
-        String id = null;
-        List<Book> book = bookDao.selectAllStore(pageNum, pageSize,id);
-        return book;
-    }
 
     public int countBorrowHistoryNum(String userId) {
         return  bookDao.countBorrowHistoryBooks(userId);
+    }
+
+    public List<Book> selectBorrowHistoryBooks(int pageNum, int pageSize, String userId) {
+        String id = null;
+        List<Book> book = bookDao.selectAllStore(pageNum, pageSize,id);
+        return book;
     }
 }
 
